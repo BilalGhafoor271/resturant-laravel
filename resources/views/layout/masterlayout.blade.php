@@ -60,7 +60,7 @@
                     <div id="navbar" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="{{ route('index')}}">Home</a></li>
-                            <li><a href="{{ route('menu')}}">Menu</a></li>
+                            <li><a href="{{ route('menu','all')}}">Menu</a></li>
                             <li><a href="{{ route('about')}}">About</a></li>
                             <li><a href="{{ route('gallery')}}">Gallery</a></li>
                             <li><a href="{{ route('shop')}}">Shop</a></li>

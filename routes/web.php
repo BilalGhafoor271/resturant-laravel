@@ -9,6 +9,8 @@ use App\Models\category;
 use App\Models\subcategory;
 use App\Models\Product;
 use App\Http\Controllers\menucontroller;
+use App\Http\Middleware\adminmiddleware;
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -18,7 +20,7 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 
-Route::get('/menu', [ProductController::class, 'showMenu'])->name('menu');
+Route::get('/menu', [menucontroller::class, 'index'])->name('menu');
 Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
@@ -34,20 +36,20 @@ Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/{id}', [shopcontroller::class, 'show'])->name('shop_detail');
 
 Route::get('/shop_cart', function () {
-    return view('shop_cart');
+    return view('shop.shop_cart');
 })->name('shop_cart');
 Route::get('/login', function () {
-    return view('login');
+    return view('userauth.login');
 })->name('login');
 Route::get('/signup', function () {
-    return view('signup');
+    return view('userauth.signup');
 })->name('signup');
 Route::get('/success', function () {
     return view('success');
 })->name('success');
-Route::get('adminlogin', function () {
-    return view('adminpanel/adminlogin');
-})->name('adminlogin');
+Route::get('admin', function () {
+    return view('adminpanel.adminlogin');
+})->name('admin');
 
 
 route::fallback(function(){
@@ -60,14 +62,16 @@ route::post('login', [userscontroller::class,'login'])->name('user.login');
 
 //admin-panel route
 
-    Route::get('/admin', function () {
-        return view('adminpanel/admin-index');
-    })->name('admin');
+
+
+Route::middleware(adminmiddleware::class)->group(function () {
+    Route::get('/admindashbaord', function () {
+        return view('adminpanel.admin-index');
+    })->name('admin-dashboard');
     Route::resource('categories', categoriescontroller::class);
     Route::resource('subcategories', subcategoriescontroller::class);
     Route::resource('products', productcontroller::class);
-
-
+});
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

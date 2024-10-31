@@ -42,11 +42,11 @@
                         </ul><!--end nav-->
                     </div><!--end /div-->
                 </div><!--end main-icon-menu-body-->
-                <div class="pro-metrica-end">
+                {{-- <div class="pro-metrica-end">
                     <a href="" class="profile">
                         <img src="{{asset('admin-assets/images/users/user-4.jpg')}} " alt="profile-user" class="rounded-circle thumb-sm">
                     </a>
-                </div><!--end pro-metrica-end-->
+                </div><!--end pro-metrica-end--> --}}
             </div>
             <!--end main-icon-menu-->
 
@@ -57,7 +57,7 @@
                         <span>
                             <!-- <img src="assets/images/logo-dark.png" alt="logo-large" class="logo-lg logo-dark"> -->
                             <!-- <img src="assets/images/logo.png" alt="logo-large" class="logo-lg logo-light"> -->
-                             <h2>zauq</h2>
+                             <h2>Resturant</h2>
                         </span>
                     </a><!--end logo-->
                 </div><!--end topbar-left-->
@@ -71,7 +71,7 @@
 
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin')}}">Overview</a>
+                                <a class="nav-link" href="{{ route('admin-dashboard')}}">Overview</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('categories.index')}}">Categories</a>
@@ -113,7 +113,7 @@
                         </div>
                     </li>end topbar-language -->
 
-                    <li class="dropdown notification-list">
+                    {{-- <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle arrow-none nav-icon" data-bs-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
                             <i class="ti ti-mail"></i>
@@ -195,8 +195,8 @@
                                 View all <i class="fi-arrow-right"></i>
                             </a>
                         </div>
-                    </li>
-
+                    </li> --}}
+{{--
                     <li class="dropdown notification-list">
                         <a class="nav-link dropdown-toggle arrow-none nav-icon" data-bs-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
@@ -280,32 +280,32 @@
                                 View all <i class="fi-arrow-right"></i>
                             </a>
                         </div>
-                    </li>
+                    </li> --}}
 
                     <li class="dropdown">
                         <a class="nav-link dropdown-toggle nav-user" data-bs-toggle="dropdown" href="#" role="button"
                             aria-haspopup="false" aria-expanded="false">
                             <div class="d-flex align-items-center">
-                                <img src="{{asset('admin-assets/images/users/user-4.jpg')}} " alt="profile-user" class="rounded-circle me-2 thumb-sm" />
+                                {{-- <img src="{{asset('admin-assets/images/users/user-4.jpg')}} " alt="profile-user" class="rounded-circle me-2 thumb-sm" /> --}}
                                 <div>
                                     <small class="d-none d-md-block font-11">Admin</small>
-                                    <span class="d-none d-md-block fw-semibold font-12">Maria Gibson <i
+                                    <span class="d-none d-md-block fw-semibold font-12">{{Auth::user()->name }}<i
                                             class="mdi mdi-chevron-down"></i></span>
                                 </div>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#"><i class="ti ti-user font-16 me-1 align-text-bottom"></i> Profile</a>
-                            <a class="dropdown-item" href="#"><i class="ti ti-settings font-16 me-1 align-text-bottom"></i> Settings</a>
-                            <div class="dropdown-divider mb-0"></div>
-                            <a class="dropdown-item" href="#"><i class="ti ti-power font-16 me-1 align-text-bottom"></i> Logout</a>
+                            {{-- <a class="dropdown-item" href="#"><i class="ti ti-user font-16 me-1 align-text-bottom"></i> Profile</a> --}}
+                            {{-- <a class="dropdown-item" href="#"><i class="ti ti-settings font-16 me-1 align-text-bottom"></i> Settings</a> --}}
+                            {{-- <div class="dropdown-divider mb-0"></div> --}}
+                            <a class="dropdown-item" href="{{  route('user.logout') }}"><i class="ti ti-power font-16 me-1 align-text-bottom"></i> Logout</a>
                         </div>
                     </li><!--end topbar-profile-->
-                    <li class="notification-list">
+                    {{-- <li class="notification-list">
                         <a class="nav-link arrow-none nav-icon offcanvas-btn" href="#" data-bs-toggle="offcanvas" data-bs-target="#Appearance" role="button" aria-controls="Rightbar">
                             <i class="ti ti-settings ti-spin"></i>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul><!--end topbar-nav-->
 
                 <ul class="list-unstyled topbar-nav mb-0">

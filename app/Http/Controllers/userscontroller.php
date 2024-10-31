@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -30,15 +31,15 @@ class userscontroller extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $validator = validator::make($request->all(),[
-            'name'=>'required',
-            'email'=>'required|unique:users,email',
-            'password'=>'required | string',
-            'address'=>'required',
-            'phone'=>'required'
+        $validator = validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|unique:users,email',
+            'password' => 'required | string',
+            'address' => 'required',
+            'phone' => 'required'
 
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
         }
 
@@ -49,9 +50,9 @@ class userscontroller extends Controller
         $user->address = $request->address;
         $user->phone = $request->phone;
 
-$user->save();
-Auth::login($user);
-return redirect()->route('user.index');
+        $user->save();
+        Auth::login($user);
+        return redirect()->route('user.index');
     }
 
     /**
@@ -86,36 +87,38 @@ return redirect()->route('user.index');
     {
         //
     }
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
-        return view('login');
+        return redirect()->route('index');
     }
 
-    public function login(Request $request){
-        $validator = validator::make($request->all(),[
-            'email'=>'required|email',
-            'password'=>'required'
+    public function login(Request $request)
+    {
+        $validator = validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
 
         ]);
-        if($validator->fails()){
-            return redirect()->route('login')->withErrors($validator);
-                }
-        $user = User::where('email',$request->email)->first();
-        if(!$user)
-        {
-            return redirect()->route('signup')->with('error','Email does not exist. Please sign up');
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+        $user = User::where('email', $request->email)->first();
+        if (!$user) {
+            return redirect()->back()->with('error', 'Email does not exist. Please sign up');
         }
 
-        if(!Auth::attempt(['email'=>$request->email,'password'=>$request->password]))
-        {
-            return redirect()->route('login')->with('error', 'Wrong password. Please try again.');
-        }
-        elseif(Auth::attempt(['email'=>$request->email,'password'=>$request->password])){
-Auth::login($user);
-        return redirect()->route('user.index');
-        }
-        else{
-        return redirect()->route('login')->withErrors($validator);
+        if (!Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect()->back()->with('error', 'Wrong password. Please try again.');
+        } elseif (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            Auth::login($user);
+            if (Auth::user()->role == 'admin') {
+                return redirect()->route('admin-dashboard');
+            } elseif (Auth::user()->role == 'user') {
+                return redirect()->route('user.index');
+            }
+        } else {
+            return redirect()->back()->withErrors($validator);
         }
     }
 }

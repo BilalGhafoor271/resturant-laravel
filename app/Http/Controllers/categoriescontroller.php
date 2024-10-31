@@ -13,7 +13,7 @@ class categoriescontroller extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('adminpanel.categories', compact('categories'));
+        return view('adminpanel.categories.categories', compact('categories'));
     }
 
     /**
@@ -21,7 +21,7 @@ class categoriescontroller extends Controller
      */
     public function create()
     {
-       return view('adminpanel.createcategories');
+       return view('adminpanel.categories.createcategories');
     }
 
     /**
@@ -61,7 +61,7 @@ class categoriescontroller extends Controller
     public function edit(string $id)
     {
         $category = Category::find($id);
-       return view('adminpanel.editcategories',compact('category'));
+       return view('adminpanel.categories.editcategories',compact('category'));
     }
 
     /**

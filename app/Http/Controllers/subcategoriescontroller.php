@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\category;
 use App\Models\subcategory;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class subcategoriescontroller extends Controller
     public function index()
     {
         $subcategories = subCategory::all();
-        return view('adminpanel.subcategories', compact('subcategories'));
+        return view('adminpanel.subcategories.subcategories', compact('subcategories'));
     }
 
     /**
@@ -24,8 +25,7 @@ class subcategoriescontroller extends Controller
     public function create()
     {
         $categories = category::all();
-       return view('adminpanel.createsubcategories',compact('categories'));
-
+        return view('adminpanel.subcategories.createsubcategories', compact('categories'));
     }
 
     /**
@@ -33,17 +33,17 @@ class subcategoriescontroller extends Controller
      */
     public function store(Request $request)
     {
-        $validator = validator::make($request->all(),[
-            'name'=>'required|unique:categories',
+        $validator = validator::make($request->all(), [
+            'name' => 'required|unique:categories',
             'category_id' => 'required|exists:categories,id',
-            'slug'=>'nullable',
-            'status'=>'required'
+            'slug' => 'nullable',
+            'status' => 'required'
         ]);
-        if($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->errors());
         }
 
-        $subcategory =new subCategory();
+        $subcategory = new subCategory();
         $subcategory->name = $request->name;
         $subcategory->category_id = $request->category_id;
         $subcategory->slug = $request->slug;
@@ -51,7 +51,6 @@ class subcategoriescontroller extends Controller
 
         $subcategory->save();
         return redirect()->route('subcategories.index');
-
     }
 
     /**
@@ -69,7 +68,7 @@ class subcategoriescontroller extends Controller
     {
         $subcategory = subCategory::find($id);
         $categories = Category::all();
-       return view('adminpanel.editsubcategories',compact('subcategory','categories'));
+        return view('adminpanel.subcategories.editsubcategories', compact('subcategory', 'categories'));
     }
 
     /**
@@ -79,10 +78,10 @@ class subcategoriescontroller extends Controller
     {
         $subcategory = subCategory::find($id);
 
-        $subcategory->name=$request->name;
-        $subcategory->category_id=$request->category_id;
-        $subcategory->slug=$request->slug;
-        $subcategory->status=$request->status;
+        $subcategory->name = $request->name;
+        $subcategory->category_id = $request->category_id;
+        $subcategory->slug = $request->slug;
+        $subcategory->status = $request->status;
         $subcategory->update();
 
         return redirect()->route('subcategories.index');
@@ -93,7 +92,7 @@ class subcategoriescontroller extends Controller
      */
     public function destroy(string $id)
     {
-        $subcategory= subcategory::find($id);
+        $subcategory = subcategory::find($id);
         $subcategory->delete($id);
         return redirect()->route('subcategories.index');
     }

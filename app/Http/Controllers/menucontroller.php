@@ -10,8 +10,10 @@ class menucontroller extends Controller
 {
     public function index()
     {
-        $categories = Category::with('products')->get(); // Eager load products with categories
-        return view('menu', compact('categories')); // Return the view with data
+        $categories = Category::all(); // Retrieve all categories
+        $products = Product::all(); // Retrieve all
+        // dd($products);
+        return view('/menu', compact(['categories', 'products'])); // Return the view with data
     }
 
 }
